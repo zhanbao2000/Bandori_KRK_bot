@@ -12,6 +12,6 @@ TOKEN = "xxxxxxx"
 ```
 TOKEN在 @BotFather 处自行获取</br></br>
 然后运行</br>
-```bash
+```shell
 $ python Bandori_KRK_bot.py
 ```
