@@ -43,9 +43,9 @@ def gettw(keyword, number=8, newest=True):
             # TODO(zhanbao2000) 解决对于 '１７２５０' 这种类型的房间号的匹配
 
         time = item('.js-relative-timestamp').attr('data-time')
-        user = user_profile.attr('data-name') + ' [@' + user_profile.attr(
-            'data-screen-name') + '](https://twitter.com/' + user_profile.attr('data-screen-name') + ')'
-        # example: user = '愛美 [@aimi_sound](https://twitter.com/aimi_sound)'
+        user = user_profile.attr('data-name') + ' ([@' + user_profile.attr(
+            'data-screen-name') + '](https://twitter.com/' + user_profile.attr('data-screen-name') + '))'
+        # example: user = '愛美 ([@aimi_sound](https://twitter.com/aimi_sound))'
 
         char = re.sub('@\n', '@', char)
         char = re.sub('#\n', '#', char)
