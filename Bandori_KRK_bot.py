@@ -51,7 +51,7 @@ def tw_handle(word, n):
     result = ''
     try:
         char = gettw(word, number=n, newest=True)
-    except AttributeError:
+    except RuntimeError:
         return '请求Twitter数据时发生错误\n请稍后再试.'
     now = time.time()
 
@@ -108,6 +108,7 @@ def search(message):
         bot.send_chat_action(message.chat.id, 'typing')
         bot.send_message(message.chat.id, '这是整数？')
         return
+        # TODO(zhanbao2000) 添加函数以便于制作MD语法
 
     bot.send_chat_action(message.chat.id, 'typing')
     char = tw_handle(Bandori_keyword, int(number))
@@ -116,7 +117,7 @@ def search(message):
 
 # 快速命令：搜寻最新的5辆推车
 @bot.message_handler(commands=["search5"])
-def search(message):
+def search5(message):
     bot.send_chat_action(message.chat.id, 'typing')
     char = tw_handle(Bandori_keyword, 5)
     bot.send_message(message.chat.id, char, parse_mode='Markdown')
