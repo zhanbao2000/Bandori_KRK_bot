@@ -8,9 +8,9 @@
 # 运行
 创建一个`config.py`，包含一个TOKEN</br>
 ``` python
-TOKEN = "233333333:AAA3AA33A-AAAAAAAAA3AAAAA333AAA-3AA"
+TOKEN = "..."
 ```
-TOKEN在 @BotFather 处自行获取</br></br>
+TOKEN是形如`233333333:AAA3AA33A-AAAAAAAAA3AAAAA333AAA-3AA`的一段字符串<br>你应当在 @BotFather 处自行获取</br></br>
 然后运行</br>
 ``` bash
 python Bandori_KRK_bot.py
