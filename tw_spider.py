@@ -10,7 +10,7 @@ def gettw(keyword, number=8, newest=True):
     """根据关键字搜索推文.
 
     :param keyword: 所搜寻的关键字.
-    :param number: (optional) 返回的推文数量 (0<number<20 default: 5).
+    :param number: (optional) 返回的推文数量 (0<number<20 default: 8).
     :param newest: (optional) 是否搜寻最新推文，True:搜寻最新推文，False:搜寻热门推文 (default: True).
     :return: 列表第一个元素是已丢弃的推文数量。从第二个元素开始，每连续三个元素对应同一条推文的发送者、发送时的Unix时间戳、推文正文
     :rtype: List
@@ -35,7 +35,7 @@ def gettw(keyword, number=8, newest=True):
     try:
         d = PyQuery(r.json()['items_html'])
     except ValueError:
-        raise AttributeError('Something wrong with Twitter...')
+        raise RuntimeError('Something wrong with Twitter...')
 
     for i in range(0, number):
         # 解析从搜索页提取的json
