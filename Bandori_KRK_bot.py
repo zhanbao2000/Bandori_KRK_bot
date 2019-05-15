@@ -58,9 +58,9 @@ def tw_handle(word, n):
     if char[0] == n:
         result = '搜索结果所返回的%d条推文，全部是无效推文☹️' % n
     else:
-        for i in range(1, len(char) - 1, 3):
-            result += '---- ---- ---- ----\n来自 %s 的推车：\n%s(%d秒前)\n\n%s\n\n\n' % (
-                char[i + 2], gettime(char[i + 1]), now - int(char[i + 1]), char[i])
+        for i in range(1, len(char) - 1, 4):
+            result += '---- ---- ---- ----\n来自 %s ([@%s](https://twitter.com/%s))的推车：\n%s (%d秒前)\n\n%s\n\n\n' % (
+                char[i + 1], char[i], char[i], gettime(char[i + 2]), now - int(char[i + 2]), char[i + 3])
         if char[0] != 0:
             result += "\n已经丢弃%d条无效推文" % char[0]
     return result
