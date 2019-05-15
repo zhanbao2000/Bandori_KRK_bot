@@ -7,11 +7,11 @@
 </br>
 # 运行
 创建一个`config.py`，包含一个TOKEN</br>
-```python
-TOKEN = "xxxxxxx"
+``` python
+TOKEN = "233333333:AAA3AA33A-AAAAAAAAA3AAAAA333AAA-3AA"
 ```
 TOKEN在 @BotFather 处自行获取</br></br>
 然后运行</br>
-```shell
-$ python Bandori_KRK_bot.py
+``` bash
+python Bandori_KRK_bot.py
 ```
