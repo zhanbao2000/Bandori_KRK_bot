@@ -43,14 +43,16 @@ def is_number(s):
         return True
     except ValueError:
         pass
-
     return False
 
 
 # 处理推文
 def tw_handle(word, n):
     result = ''
-    char = gettw(word, number=n, newest=True)
+    try:
+        char = gettw(word, number=n, newest=True)
+    except AttributeError:
+        return '请求Twitter数据时发生错误\n请稍后再试.'
     now = time.time()
 
     if char[0] == n:
@@ -96,11 +98,15 @@ def search(message):
     number = message.text[8:]
     if not is_number(number):
         bot.send_chat_action(message.chat.id, 'typing')
-        bot.send_message(message.chat.id, '请附加1至20之间的数字，如 /search 8')
+        bot.send_message(message.chat.id, '请附加1至20之间的整数，如 /search 8')
         return
-    elif int(number) < 1 or int(number) > 20:
+    elif int(float(number)) < 1 or int(float(number)) > 20:
         bot.send_chat_action(message.chat.id, 'typing')
-        bot.send_message(message.chat.id, '请附加1至20之间的数字，如 /search 8')
+        bot.send_message(message.chat.id, '只能输入1~20的整数，如 /search 8')
+        return
+    elif int(float(number)) != float(number):
+        bot.send_chat_action(message.chat.id, 'typing')
+        bot.send_message(message.chat.id, '这是整数？')
         return
 
     bot.send_chat_action(message.chat.id, 'typing')
@@ -118,4 +124,3 @@ def search(message):
 
 if __name__ == '__main__':
     bot.polling()
-
