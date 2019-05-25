@@ -85,9 +85,10 @@ def help(message):
 可用的指令：
 /start - 开始
 /help - 帮助
-/search - 查找推车
+/search - 查找推车(使用方法：/search + 数字(1~6))
 /search5 - 快速搜寻最新的5辆推车
 """
+# TODO(zhanbao2000) 删除维修指示
     bot.send_chat_action(message.chat.id, 'typing')
     bot.send_message(message.chat.id, char, )
 
@@ -98,11 +99,13 @@ def search(message):
     number = message.text[8:]
     if not is_number(number):
         bot.send_chat_action(message.chat.id, 'typing')
-        bot.send_message(message.chat.id, '请附加1至20之间的整数，如 /search 8')
+        bot.send_message(message.chat.id, '请附加1至6之间的整数，如 /search 2')
+        # TODO(zhanbao2000) 删除维修指示
         return
-    elif int(float(number)) < 1 or int(float(number)) > 20:
+    elif int(float(number)) < 1 or int(float(number)) > 6:
         bot.send_chat_action(message.chat.id, 'typing')
-        bot.send_message(message.chat.id, '只能输入1~20的整数，如 /search 8')
+        bot.send_message(message.chat.id, 'bot正在维修，不能像以前可以输入1~20，现在只能输入1~6的整数，如 /search 2')
+        # TODO(zhanbao2000) 完成分割处理的TODO之后，把限制从1~6恢复为1~20，并删除维修指示
         return
     elif int(float(number)) != float(number):
         bot.send_chat_action(message.chat.id, 'typing')
@@ -113,6 +116,7 @@ def search(message):
     bot.send_chat_action(message.chat.id, 'typing')
     char = tw_handle(Bandori_keyword, int(number))
     bot.send_message(message.chat.id, char, parse_mode='Markdown')
+    # TODO(zhanbao2000) 由于TG对bot请求md语法时有最大字符限制，要将所有消息分割成5个推文一条
 
 
 # 快速命令：搜寻最新的5辆推车
