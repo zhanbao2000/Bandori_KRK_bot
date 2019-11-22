@@ -1,10 +1,10 @@
 # Bandori_KRK_bot
 邦邦日服协力Live机器人，半自动获取推特上的邦邦协力车
 
-懒得写`requirement.txt`了，自己一个个`pip install`吧：</br>
+# requirement
+`pip install pyTelegramBotAPI requests pyquery telebot`</br>
+pip各大源都会经常崩，pip install不上那就多试几次
 
-`requests`</br>`re`</br>`pyquery`</br>`telebot`</br>`time`</br>`sys`</br>
-</br>
 # 运行
 创建一个`config.py`，包含一个TOKEN</br>
 ``` python
