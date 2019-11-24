@@ -66,6 +66,27 @@ def tw_handle(word, n):
     return result
 
 
+# 新的推文处理函数
+def send_room(chatid, n):
+    try:
+        char = gettw(Bandori_keyword, number=n, newest=True)
+    except RuntimeError:
+        return '请求Twitter数据时发生错误\n请稍后再试.'
+    now = time.time()
+
+    if char[0] == n:
+        msg = '搜索结果所返回的%d条推文，全部是无效推文☹️' % n
+        bot.send_message(chatid, msg)
+    else:
+        if char[0] != 0:
+            msg = "\n已经丢弃%d条无效推文" % char[0]
+            bot.send_message(chatid, msg)
+        for i in range(1, len(char) - 1, 4):
+            msg = '来自 %s ([@%s](https://twitter.com/%s))的推车：\n%s (%d秒前)\n\n%s' % (
+                char[i + 1], char[i], char[i], gettime(char[i + 2]), now - int(char[i + 2]), char[i + 3])
+            bot.send_message(chatid, msg, parse_mode='Markdown')
+
+
 # Admin认证
 def verify(chat_id):
     return chat_id in ADMINS
@@ -85,12 +106,11 @@ def help(message):
 可用的指令：
 /start - 开始
 /help - 帮助
-/search - 查找推车(使用方法：/search + 数字(1~6))
+/search - 查找推车(使用方法：/search + 数字(1~20))
 /search5 - 快速搜寻最新的5辆推车
 """
-# TODO(zhanbao2000) 删除维修指示
     bot.send_chat_action(message.chat.id, 'typing')
-    bot.send_message(message.chat.id, char, )
+    bot.send_message(message.chat.id, char)
 
 
 # 一般方法查找推车
@@ -99,13 +119,7 @@ def search(message):
     number = message.text[8:]
     if not is_number(number):
         bot.send_chat_action(message.chat.id, 'typing')
-        bot.send_message(message.chat.id, '请附加1至6之间的整数，如 /search 2')
-        # TODO(zhanbao2000) 删除维修指示
-        return
-    elif int(float(number)) < 1 or int(float(number)) > 6:
-        bot.send_chat_action(message.chat.id, 'typing')
-        bot.send_message(message.chat.id, 'bot正在维修，不能像以前可以输入1~20，现在只能输入1~6的整数，如 /search 2')
-        # TODO(zhanbao2000) 完成分割处理的TODO之后，把限制从1~6恢复为1~20，并删除维修指示
+        bot.send_message(message.chat.id, '请附加1至20之间的整数，如 /search 2')
         return
     elif int(float(number)) != float(number):
         bot.send_chat_action(message.chat.id, 'typing')
@@ -114,17 +128,14 @@ def search(message):
         # TODO(zhanbao2000) 添加函数以便于制作MD语法
 
     bot.send_chat_action(message.chat.id, 'typing')
-    char = tw_handle(Bandori_keyword, int(number))
-    bot.send_message(message.chat.id, char, parse_mode='Markdown')
-    # TODO(zhanbao2000) 由于TG对bot请求md语法时有最大字符限制，要将所有消息分割成5个推文一条
+    send_room(message.chat.id, int(number))
 
 
 # 快速命令：搜寻最新的5辆推车
 @bot.message_handler(commands=["search5"])
 def search5(message):
     bot.send_chat_action(message.chat.id, 'typing')
-    char = tw_handle(Bandori_keyword, 5)
-    bot.send_message(message.chat.id, char, parse_mode='Markdown')
+    send_room(message.chat.id, 5)
 
 
 if __name__ == '__main__':

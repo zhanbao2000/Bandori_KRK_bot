@@ -23,7 +23,7 @@ def gettw(keyword, number=8, newest=True):
     discard_count = 0  # 丢弃推文数计数器
 
     if number < 1 or number > 20:
-        raise ValueError('number is not in the domain of definition(1~20)')
+        raise ValueError('number must between 1~20 while number is %d' % number)
 
     if newest:
         s = 'f=tweets&'
@@ -47,11 +47,12 @@ def gettw(keyword, number=8, newest=True):
         time = item('.js-relative-timestamp').attr('data-time')
         char = item('.js-tweet-text-container').text()
 
-        # 这是针对Bandori而设置的筛选：如果正文不包含五位数房间号，那么忽略这条推文，并且计数器加一。不需要此功能可以注释掉
-        if re.search(r'[0-9]{5}', char) is None and re.search(r'[0-9] [0-9] [0-9] [0-9] [0-9]', char) is None:
-            discard_count += 1
-            continue
-            # TODO(zhanbao2000) 解决对于 '１７２５０' 这种类型的房间号的匹配
+        # # 这是针对Bandori而设置的筛选：如果正文不包含五位数房间号，那么忽略这条推文，并且计数器加一。不需要此功能可以注释掉
+        # # 从2019年11月起取消了这个设置，因为遇到了推车炸车的人
+        # if re.search(r'[0-9]{5}', char) is None and re.search(r'[0-9] [0-9] [0-9] [0-9] [0-9]', char) is None:
+        #     discard_count += 1
+        #     continue
+        #     # TODO(zhanbao2000) 解决对于 '１７２５０' 这种类型的房间号的匹配
 
         char = re.sub('@\n', '@', char)
         char = re.sub('#\n', '#', char)
