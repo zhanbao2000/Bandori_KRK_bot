@@ -19,4 +19,4 @@ python Bandori_KRK_bot.py
 ## pip install找不到模块
 pip各大源都会经常崩，pip install不上那就多试几次
 ## Bot偶尔停止运行
-我也不知道，只能自己写一个守护脚本，或者自己经常上vps看看（停了就打开嘛
+API的锅
