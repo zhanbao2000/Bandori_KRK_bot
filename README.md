@@ -1,7 +1,7 @@
 # Bandori_KRK_bot
 邦邦日服协力Live机器人，半自动获取推特上的邦邦协力车
 
-# requirement
+# 依赖
 `pip install pyTelegramBotAPI requests pyquery telebot
 `</br>
 
@@ -18,3 +18,5 @@ python Bandori_KRK_bot.py
 # F.A.Q.
 ## pip install找不到模块
 pip各大源都会经常崩，pip install不上那就多试几次
+## Bot偶尔停止运行
+我也不知道，只能自己写一个守护脚本，或者自己经常上vps看看（停了就打开嘛
