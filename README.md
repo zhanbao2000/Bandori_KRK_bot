@@ -19,4 +19,4 @@ python Bandori_KRK_bot.py
 ## pip install找不到模块
 pip各大源都会经常崩，pip install不上那就多试几次
 ## Bot偶尔停止运行
-API的锅
+跟Markdown语法有关，从推特上爬出来的文字，跟Markdown一组合，就会出点问题。要么停用Markdown，要么另外想办法
